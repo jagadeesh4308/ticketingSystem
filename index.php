@@ -10,13 +10,9 @@
     <?php 
     
     include "./includes/connect.php"; 
+    session_start();
+    $_SESSION['userGender'] = 'girl';
     
-    ?>
-
-    <?php 
-        if(isset($_POST['bookNow'])){
-            echo $_POST['slot'];
-        }
     ?>
 
     <?php 
