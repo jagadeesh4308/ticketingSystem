@@ -10,9 +10,7 @@
     <?php 
     
     include "./includes/connect.php"; 
-    session_start();
     $movieSelected = $_GET['moviename'];
-    $gender = $_SESSION['userGender'];
     
     ?>
 
@@ -52,31 +50,22 @@
         //generating new pattern
 
         $newPattern = $time."#";
-        $oldPatternSplit = explode('@',$oldPattern);
+        $oldPatternSplit = explode('_',$oldPattern);
         $oldPatternArr = '';
-        $addition = '';
-        if($gender == 'girl'){
-            $oldPatternArr = explode('_',$oldPatternSplit[0]);
-            $addition = $oldPatternSplit[1];
-        }
-        else{
-            $oldPatternArr = explode('_',$oldPatternSplit[1]);
-            $addition = $oldPatternSplit[0];
-        }
 
         foreach($selections as $selection){
             $match = explode('.',$selection);
             $rowName = $match[0];
             $seatNum = $match[1];
-            foreach($oldPatternArr as $key=>$pat){
+            foreach($oldPatternSplit as $key=>$pat){
                 if($key==$rowName){
-                    $oldPatternArr[$key][$seatNum] = '1';
+                    $oldPatternSplit[$key][$seatNum] = '1';
                 }
             }
         }
 
-        foreach($oldPatternArr as $key=>$ele){
-            if($key!=count($oldPatternArr)-1){
+        foreach($oldPatternSplit as $key=>$ele){
+            if($key!=count($oldPatternSplit)-1){
                     $newPattern = $newPattern.$ele."_";
             }
             else{
@@ -84,13 +73,6 @@
             }
         }
 
-        if($gender == 'girl'){
-            $newPattern = $newPattern."@".$addition;
-        }
-        else{
-            $newPattern = $addition."@".$newPattern;
-        }
-        
         $query = "UPDATE movieSeatPattern SET {$column} = '$newPattern' WHERE movieSeatPattern.movieDate = '$date' AND movieSeatPattern.movieName = '$movieSelected'";
         mysqli_query($connection,$query);
 
@@ -126,20 +108,11 @@
                 $pattern = $movieSlot4[1];
             }
 
-            $patternSplit = explode('@',$pattern);
-            $loadPattern = '';
-            if($gender == 'girl'){
-                $loadPattern = $patternSplit[0];
-            }
-            else{
-                $loadPattern = $patternSplit[1];
-            }
-
             echo "<form action='#' method='post'>";
             echo "<input type='text' value=$date name='date'>";
             echo "<input type='text' value=$time name='time'";
             echo "<br><br>";
-            $seatRows = explode('_',$loadPattern);
+            $seatRows = explode('_',$pattern);
             foreach($seatRows as $rowNum=>$row){
                 $seats = str_split($row);
                 foreach($seats as $seatNum=>$seat){
