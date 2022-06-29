@@ -1,19 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticketing System</title>
-</head>
-<body>
-    <?php 
+<?php 
     
     include "./includes/connect.php"; 
+    include "./includes/header.php";
+    include "./includes/getBack.php";
     $movieSelected = $_GET['moviename'];
     
-    ?>
-
+?>
     <!-- tickets booking after selection with new pattern generation -->
     <?php 
     
@@ -28,6 +20,7 @@
         $movieSlot2 = explode("#",$movie['slot2']);
         $movieSlot3 = explode("#",$movie['slot3']);
         $movieSlot4 = explode("#",$movie['slot4']);
+        $movieCode = $movie['movieCode'];
         $column = '';
         $oldPattern = '';
         if($movieSlot1[0] == $time){
@@ -52,11 +45,20 @@
         $newPattern = $time."#";
         $oldPatternSplit = explode('_',$oldPattern);
         $oldPatternArr = '';
+        $reserves = '';
 
-        foreach($selections as $selection){
+        foreach($selections as $mark=>$selection){
             $match = explode('.',$selection);
             $rowName = $match[0];
             $seatNum = $match[1];
+            $rowLetter =  utf8_encode( chr((int)$rowName+65) );
+            $temp = $rowLetter."-".((int)$seatNum+1);
+            if($mark!=count($selections)-1){
+                $reserves = $reserves.$temp.', ';
+            }
+            else{
+                $reserves = $reserves.$temp;
+            }
             foreach($oldPatternSplit as $key=>$pat){
                 if($key==$rowName){
                     $oldPatternSplit[$key][$seatNum] = '1';
@@ -76,7 +78,17 @@
         $query = "UPDATE movieSeatPattern SET {$column} = '$newPattern' WHERE movieSeatPattern.movieDate = '$date' AND movieSeatPattern.movieName = '$movieSelected'";
         mysqli_query($connection,$query);
 
+        $movieParticular = $date."_".$time;
 
+
+        $ticketID = '';
+        $rows = mysqli_num_rows(mysqli_query($connection,"SELECT * FROM movieBookings WHERE movieBookings.movieName = '$movieSelected'")); 
+        $ticketID = $movieCode.'00'.(((int)$rows)+1);
+
+        mysqli_query($connection,"INSERT INTO movieBookings(ticketID,userName,movieName,movieParticulars,seatPattern) VALUES('$ticketID','$user','$movieSelected','$movieParticular','$reserves')");
+        echo "Seats reserved successfully";
+        header("refresh: 2; url = myBookings.php");
+    
     }
     
     ?>
@@ -176,5 +188,10 @@
             });
         });
     </script>
-</body>
-</html>
+
+
+<?php 
+
+include "./includes/footer.php";
+
+?>

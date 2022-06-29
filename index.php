@@ -1,30 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticketing System</title>
-</head>
-<body>
-    <?php 
+<?php 
     
     include "./includes/connect.php"; 
+    include "./includes/header.php";
     session_start();
-    $_SESSION['userGender'] = 'girl';
+    $_SESSION['userName'] = 'jagadeesh4308@gmail.com';
     
-    ?>
+?>
 
-    <?php 
+<style>
     
-    echo "<form action='#' method='post'>";
-    $query = "SELECT DISTINCT movieName FROM movieSeatPattern";
-    $response = mysqli_query($connection,$query);
-    while($movie = mysqli_fetch_assoc($response)){
+</style>
+
+<?php 
+
+    $query1 = "SELECT * FROM movieSeatPattern WHERE isRegistrationsOpened=1";
+    $response1 = mysqli_query($connection,$query1);
+    echo "<h1>Current movies</h1>";
+    while($movie = mysqli_fetch_assoc($response1)){
         $movieName = $movie['movieName'];
-        echo "<a href='detailsAndBooking.php?moviename=$movieName'>$movieName</a><br><br>";
+        $movieImg = $movie['moviePoster'];
+        $regStatus = $movie['isRegistrationsOpened'];
+        echo "<a href='detailsAndBooking.php?moviename=$movieName' class='card'>
+                    <div class='img'><img src='images/$movieImg'></div>
+                    <h4>$movieName</h4>
+                  </a><br><br>";
+    }
+
+    $query2 = "SELECT * FROM movieSeatPattern WHERE isRegistrationsOpened=0";
+    $response2 = mysqli_query($connection,$query2);
+    echo "<h1>Upcoming movies</h1>";
+    while($movie = mysqli_fetch_assoc($response2)){
+        $movieName = $movie['movieName'];
+        $movieImg = $movie['moviePoster'];
+        $regStatus = $movie['isRegistrationsOpened'];
+        echo "<div class='card'>
+                    <div class='img'><img src='images/$movieImg'></div>
+                    <h4>$movieName</h4>
+                  </div><br><br>";
     }
     
-    ?>
-</body>
-</html>
+?>
+
+<?php 
+
+include "./includes/footer.php";
+
+?>
