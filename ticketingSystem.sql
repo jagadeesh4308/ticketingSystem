@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 06, 2022 at 07:38 PM
+-- Generation Time: Jul 09, 2022 at 11:05 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -42,9 +42,14 @@ CREATE TABLE `movieBookings` (
 --
 
 INSERT INTO `movieBookings` (`sno`, `ticketID`, `userName`, `movieName`, `movieParticulars`, `seatPattern`, `isEntered`) VALUES
-(1, 'AS001', 'jagadeesh4308@gmail.com', 'Ante Sundaraniki', '05-07-2022_6:00PM', 'G-8, G-9', 0),
-(2, 'AS002', 'jagadeesh4308@gmail.com', 'Ante Sundaraniki', '05-07-2022_6:00PM', 'I-19, I-20', 0),
-(3, 'RRR001', 'jagadeesh4308@gmail.com', 'RRR', '07-07-2022_5:00PM', 'B-9, B-10', 0);
+(1, 'VK001', 'jagadeesh4308@gmail.com', 'VIKRAM', '15-07-2022_11:00PM', 'D-8, D-9', 1),
+(2, 'VK002', 'n170142@rguktn.ac.in', 'VIKRAM', '15-07-2022_11:00PM', 'C-17, C-18, C-19', 1),
+(3, 'DON001', 'jagadeesh4308@gmail.com', 'DON', '20-07-2022_8:00PM', 'C-4, C-5, C-6', 0),
+(4, 'DON002', 'jagadeesh4308@gmail.com', 'DON', '20-07-2022_8:00PM', 'E-16, E-17, E-18', 0),
+(5, 'VK003', 'jagadeesh4308@gmail.com', 'Vikram', '15-07-2022_11:00PM', 'C-8, C-9, C-10', 1),
+(6, 'DON003', 'jagadeesh4308@gmail.com', 'DON', '15-07-2022_2:00PM', 'D-6, D-7, E-7', 0),
+(7, 'RRR001', 'jagadeesh4308@gmail.com', 'RRR', '20-07-2022_3:00PM', 'E-10, E-11, E-12, E-13', 0),
+(8, 'RRR002', 'n170142@rguktn.ac.in', 'RRR', '20-07-2022_3:00PM', 'O-5, O-6, O-7', 0);
 
 -- --------------------------------------------------------
 
@@ -73,8 +78,30 @@ CREATE TABLE `movieSeatPattern` (
 --
 
 INSERT INTO `movieSeatPattern` (`sno`, `movieName`, `movieCode`, `movieDate`, `movieDescription`, `ticketCost`, `moviePoster`, `movieTrailer`, `slot1`, `slot2`, `slot3`, `slot4`, `isRegistrationsOpened`) VALUES
-(1, 'Ante Sundaraniki', 'AS', '05-07-2022', 'Starring Nani, Nazriya', 100, '1d4b176fe4376658d7e73ca3a68f9b7b.jpeg', 'https://youtu.be/NgBoMJy386M', '11:00AM#11011111000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000', '6:00PM#11011001110001100000_00011011001100011100_00000011101110000000_00000110000000000000_00000000111000000000_11100000000000000000_00000001100000000000_00000000000000000000_00011000000011000011_00000000000000000000_00000000000000000000_00000000111000000000_00000000000000000000_00000000000000000000_00010000000000000000', '', '', 1),
-(2, 'RRR', 'RRR', '07-07-2022', 'Starring NTR, Ram charan and Alia Bhatt', 100, 'rrr.jpg', 'https://youtu.be/NgBoMJy386M', '5:00PM#00000000000000000000_00000000110000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000_00000000000000000000', '', '', '', 1);
+(3, 'DON', 'DON', '15-07-2022', 'Starring Shiva Kartikeyan\r\nMusic: Anirudh Ravichander', 0, 'don.jpeg', 'https://www.youtube.com/embed/s5ak-NY6OC8', '2:00PM#0000000000_0000000000_0000000000_0000011000_0000001000_0000000000_0000000000_0000000000_0000000000_0000000000_0000000000_0000000000_0000000000_0000000000_0000000000', '', '', '', 0),
+(4, 'RRR', 'RRR', '20-07-2022', 'Starring NTR, Ram Charan, Alia Bhatt\r\n\r\nDirected by SS Rajamouli', 0, 'rrr.jpg', 'https://www.youtube.com/embed/NgBoMJy386M?controls=0', '3:00PM#000000000000000_000000000000000_000000000000000_000000000000000_000000000111100_000000000000000_000000000000000_000000000000000_000000000000000_000000000000000_000000000000000_000000000000000_000000000000000_000000000000000_000011100000000', '', '', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `sno` int(255) NOT NULL,
+  `usrEmail` varchar(255) NOT NULL,
+  `usrID` varchar(255) NOT NULL,
+  `usrContact` varchar(255) NOT NULL,
+  `usrPwd` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`sno`, `usrEmail`, `usrID`, `usrContact`, `usrPwd`) VALUES
+(1, 'jagadeesh4308@gmail.com', 'admin@src', '9177813632', '202cb962ac59075b964b07152d234b70'),
+(2, 'n170142@rguktn.ac.in', 'N170142', '8897501029', '202cb962ac59075b964b07152d234b70');
 
 --
 -- Indexes for dumped tables
@@ -93,6 +120,12 @@ ALTER TABLE `movieSeatPattern`
   ADD PRIMARY KEY (`sno`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`sno`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -100,12 +133,18 @@ ALTER TABLE `movieSeatPattern`
 -- AUTO_INCREMENT for table `movieBookings`
 --
 ALTER TABLE `movieBookings`
-  MODIFY `sno` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sno` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `movieSeatPattern`
 --
 ALTER TABLE `movieSeatPattern`
+  MODIFY `sno` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
   MODIFY `sno` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
