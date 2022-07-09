@@ -2,7 +2,7 @@
 
 include "./includes/header.php";
 include "./includes/connect.php";
-
+include "./includes/adminGetBack.php";
 
 ?>
 
@@ -82,47 +82,62 @@ if(isset($_POST['create'])){
 
 ?>
 
-<form action="#" method="post" enctype="multipart/form-data">
-    <input type="text" placeholder='moviename' name='moviename' required>
-    <br><br>
-    <input type="text" placeholder='moviecode' name='moviecode' required>
-    <br><br>
-    <input type="text" placeholder='Ex:29-06-2022' name='moviedate' required>
-    <br><br>
-    <textarea name="moviedescription" cols="30" rows="10" placeholder='Description' required></textarea>
-    <br><br>
-    <input type="text" placeholder='ticket cost' name='cost' required>
-    <br><br>
-    <input type='file' name='movieImg'>
-    <br><br>
-    <input type="text" name='trailer' placeholder='Movie trailer youtube link' required>
-    <br><br>
-    <label for="slot1">Slot1 Details</label>
-    <input type='text' placeholder='Ex: 11:00AM' name='slot1' required>
-    <input type="text" name='rows1' value='15' required>
-    <input type="text" name='seats1' value='20' required>
-    <br><br>
-    <label for="slot2">Slot2 Details</label>
-    <input type='text' placeholder='Ex: 3:00PM' name='slot2'>
-    <input type="number" name='rows2' value='15'>
-    <input type='number' name='seats2' value='20'>
-    <br><br>
-    <label for="slot3">Slot3 Details</label>
-    <input type='text' placeholder='Ex: 6:00PM' name='slot3'>
-    <input type="number" name='rows3' value='15'>
-    <input type="number" name='seats3' value='20'>
-    <br><br>
-    <label for="slot4">Slot4 Details</label>
-    <input type='text' placeholder='Ex: 9:00PM' name='slot4'>
-    <input type="number" name='rows4' value='15'>
-    <input type="number" name='seats4' value='20'>
-    <br><br>
-    <label for="reg">Registration open: </label>
-    <input type="radio" value="1" name='reg'>
+<div class='container'>
+
+    <h3>Add details of the movie</h3>
     <br>
-    <label for="reg">Registration close: </label>
-    <input type="radio" value="0" name='reg' checked>
-    <br><br>
-    <button type='submit' name='create'>Create movie</button>
-</form>
+
+    <form action="#" method="post" enctype="multipart/form-data">
+        <input type="text" placeholder='moviename*' class='form-control' name='moviename' required>
+        <br><br>
+        <input type="text" placeholder='moviecode*' class='form-control' name='moviecode' required>
+        <br><br>
+        <input type="text" placeholder='Ex:29-06-2022*' class='form-control' name='moviedate' required>
+        <br><br>
+        <textarea name="moviedescription" cols="30" class='form-control' rows="10" placeholder='Description*' required></textarea>
+        <br><br>
+        <input type="text" placeholder='ticket cost*' class='form-control' name='cost' required>
+        <br><br>
+        <input type='file' name='movieImg' required>
+        <br><br>
+        <input type="text" name='trailer' class='form-control' placeholder='Movie trailer youtube link*' required>
+        <br><br>
+        <label for="slot1">Slot1 Details*</label>
+        <input type='text' class='form-control' placeholder='Ex: 11:00AM' name='slot1' required>
+        <input type="text" class='form-control' name='rows1' value='15' required>
+        <input type="text" class='form-control' name='seats1' value='20' required>
+        <br><br>
+        <label for="slot2">Slot2 Details</label>
+        <input type='text' class='form-control' placeholder='Ex: 3:00PM' name='slot2'>
+        <input type="number" class='form-control' name='rows2' value='15'>
+        <input type='number' class='form-control' name='seats2' value='20'>
+        <br><br>
+        <label for="slot3">Slot3 Details</label>
+        <input type='text' class='form-control' placeholder='Ex: 6:00PM' name='slot3'>
+        <input type="number" class='form-control' name='rows3' value='15'>
+        <input type="number" class='form-control' name='seats3' value='20'>
+        <br><br>
+        <label for="slot4">Slot4 Details</label>
+        <input type='text' class='form-control' placeholder='Ex: 9:00PM' name='slot4'>
+        <input type="number" class='form-control' name='rows4' value='15'>
+        <input type="number" class='form-control' name='seats4' value='20'>
+        <br><br>
+        <label for="reg">Registration open: </label>
+        <input type="radio" value="1" name='reg' class='form-check-input'>
+        <br>
+        <label for="reg">Registration close: </label>
+        <input type="radio" value="0" name='reg' checked class='form-check-input'>
+        <br><br>
+        <button type='submit' name='create' class='btn btn-info'>Create movie</button>
+    </form>
+
+</div>
+
+<br><br>
+
+<?php 
+
+include "./includes/footer.php";
+
+?>
 

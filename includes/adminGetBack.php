@@ -5,8 +5,8 @@ session_start();
 $user = $_SESSION['user'];
 $type = $_SESSION['type'];
 
-if(!$user){
-    header("Location:login.php");
+if(!$user || $type!='admin'){
+    header("Location:index.php");
 }
 
 ?>

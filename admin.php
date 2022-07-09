@@ -2,6 +2,7 @@
 
 include "./includes/header.php";
 include "./includes/connect.php";
+include "./includes/adminGetBack.php";
 
 ?>
 
@@ -19,35 +20,57 @@ if(isset($_POST['regChange'])){
 
 ?>
 
-<a href="createMovie.php">Add a movie</a>
+<div class='container'>
 
-<br><br>
+    <a href="createMovie.php" class='btn btn-success'>Add a movie</a>
 
-<a href="searchTicket.php">Search a ticket</a>
+    <a href="searchTicket.php" class='btn btn-warning'>Search a ticket</a>
 
-<br><br>
+    <br><br><br>
+
+    <h3>Added movies</h3>
+    <br>
+
+    <?php 
+
+    echo "<form action='#' method='post'>";
+        $query = "SELECT * FROM movieSeatPattern ORDER BY sno DESC";
+        $response = mysqli_query($connection,$query);
+
+        if(mysqli_num_rows($response) > 0){
+                while($movie = mysqli_fetch_assoc($response)){
+                $movieName = $movie['movieName'];
+                $movieDate = $movie['movieDate'];
+                $reg = $movie['isRegistrationsOpened'];
+                ?>
+                <form action='#' method='post'>
+                    <?php 
+                        echo "<input type='text' class='form-control' readonly value='$movieName' name='moviename'> <br> <input type='text' class='form-control' readonly value='$movieDate' name='date'>";
+                    ?>
+                    <br>
+                    Open
+                    <input type='radio' name='reg' class='form-check-input' value='1' <?php if($reg==1){echo 'checked';}?>>
+                    Close
+                    <input type='radio' name='reg' class='form-check-input' value='0' <?php if($reg==0){echo 'checked';}?>> 
+                    <br><br>
+                    <button name='regChange' class='btn btn-info' type='submit'>Update</button>
+                </form>
+                <br>
+                <br>
+                <?php
+            }
+        }
+        else{
+            echo "Add a movie....";
+        }
+
+    ?>
+
+</div>
+
 
 <?php 
 
-echo "<form action='#' method='post'>";
-    $query = "SELECT * FROM movieSeatPattern";
-    $response = mysqli_query($connection,$query);
-    while($movie = mysqli_fetch_assoc($response)){
-        $movieName = $movie['movieName'];
-        $movieDate = $movie['movieDate'];
-        $reg = $movie['isRegistrationsOpened'];
-        ?>
-        <form action='#' method='post'>
-            <?php 
-                echo "<input type='text' value='$movieName' name='moviename'><input type='text' value='$movieDate' name='date'>";
-            ?>
-            Open
-            <input type='radio' name='reg' value='1' <?php if($reg==1){echo 'checked';}?>>
-            Close
-            <input type='radio' name='reg' value='0' <?php if($reg==0){echo 'checked';}?>> 
-            <button name='regChange' type='submit'>Update</button>
-        </form>
-        <?php
-    }
+include "./includes/footer.php";
 
 ?>
